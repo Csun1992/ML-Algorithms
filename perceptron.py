@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# we try to implement a simple PLA for separable data
 def predict(weight, data):
     bias = weight[0]
     parameterWeight = weight[1:]
@@ -24,6 +25,8 @@ def train(data, result):
                 break
     return weight
 
+
+                
 if __name__ == '__main__':
     target = np.random.rand(3)
     data = np.random.randint(-20, 20, size=(1000, 2))
