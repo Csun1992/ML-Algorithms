@@ -17,7 +17,6 @@ def cluster(data, centers):
 def normalize(data):
     return (data - np.mean(data, axis = 0)) / np.std(data, axis = 0)
 
-
 def kmean(data, clusterNum):
     data = normalize(data)
     sampleSize, dataDim = np.shape(data)
