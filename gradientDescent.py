@@ -1,7 +1,5 @@
 import numpy as np
 
-f = lambda x, w : w[2] * x[2]**2 + w[1] * x[1] + w[0] * x[0]
-gradf = lambda x, w : np.array([x[0], x[1], x[2]**2])
 
 def norm(arr1):
     return np.sqrt(sum(arr1**2))
@@ -21,6 +19,8 @@ def batchGD(f, gradf, data, label):
     return w
 
 if __name__ == '__main__':
+    f = lambda x, w : w[2] * x[2]**2 + w[1] * x[1] + w[0] * x[0]
+    gradf = lambda x, w : np.array([x[0], x[1], x[2]**2])
     sampleSize = 200
     w = np.array([3, 7, 1])     
     x = np.random.rand(sampleSize, 3)
