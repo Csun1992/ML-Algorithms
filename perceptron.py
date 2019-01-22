@@ -10,7 +10,7 @@ def predict(weight, data):
     return result 
 
 def train(data, result):
-    sampleSize, dataDim = np.size(data, axis = 0), np.size(data, axis = 1) 
+    sampleSize, dataDim = np.shape(data)
     allClassified = False
     misclassifiedIndex = np.random.randint(0, sampleSize) 
     weight = np.zeros(dataDim + 1)
