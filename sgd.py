@@ -1,9 +1,11 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 def sdg(f, gradf, data, label):
+    errHist = []
     sampleSize, dataDim = np.shape(data)
     w = np.random.normal(size=dataDim)
-    maxIter, tol, learningRate, iterationNum, err = 100000, 0.0005, 0.01, 0, np.inf
+    maxIter, tol, learningRate, iterationNum, err = 100000, 30, 0.00001, 0, np.inf
     while err > tol and iterationNum < maxIter:
         err = 0
         for i in range(sampleSize):
@@ -13,7 +15,8 @@ def sdg(f, gradf, data, label):
             w = w - learningRate * gradErr
             err = err + np.sqrt(1.0/sampleSize * (label[picked] - f(data[picked], w))**2)
             iterationNum = iterationNum + 1
-    return w, iterationNum, err
+        errHist.append(err)
+    return w, errHist
         
 
 if __name__ == '__main__':
@@ -24,7 +27,6 @@ if __name__ == '__main__':
     x = np.random.rand(sampleSize, 3)
     label = np.array([f(x[i], w) for i in range(sampleSize)])
     xperturbed = x + np.random.normal(size=(sampleSize, 3))
-    wpred = sdg(f, gradf, xperturbed, label)
-    print wpred
-    
-    
+    wpred, errHist = sdg(f, gradf, xperturbed, label)
+    plt.plot(errHist) 
+    plt.show() 
