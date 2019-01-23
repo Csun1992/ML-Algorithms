@@ -10,7 +10,7 @@ def knn(data, k, trainData, trainLabel):
     for i in data:
         distances = np.array([dist(i, j) for j in trainData])
         nearNeibs = np.argsort(-distances)[:k]
-        prediction.append(sum(trainLabel[nearNeibs]) / sampleSize)
+        prediction.append(sum(trainLabel[nearNeibs]) / k)
     return np.array(prediction)
 
 
