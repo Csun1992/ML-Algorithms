@@ -1,4 +1,5 @@
 import tensorflow as tf
+from time import time
 from tensorflow.examples.tutorials.mnist import input_data as inputData
 
 inputNode = 784
@@ -34,16 +35,20 @@ def train(mnist):
     correctPrediction = tf.equal(tf.argmax(prediction, 1), tf.argmax(y, 1))
     accuracy = tf.reduce_mean(tf.cast(correctPrediction, tf.float32))
 
-    with tf.Session() as sess:
-        tf.global_variables_initializer().run()
-        validateFeed = {x : mnist.validation.images, y : mnist.validation.labels}
-        testFeed = {x : mnist.test.images, y : mnist.test.labels}
+    sess = tf.InteractiveSession()
+    tf.global_variables_initializer().run()
+    validateFeed = {x : mnist.validation.images, y : mnist.validation.labels}
+    testFeed = {x : mnist.test.images, y : mnist.test.labels}
     
-        for i in range(trainingStep):
-            xs, ys = mnist.train.next_batch(batchSize)
-            sess.run(trainStep, feed_dict = {x : xs, y : ys})
-        testAcc = sess.run(accuracy, feed_dict=testFeed) 
-        valAcc = sess.run(accuracy, feed_dict=validateFeed)
+    for i in range(trainingStep):
+        xs, ys = mnist.train.next_batch(batchSize)
+        sess.run(trainStep, feed_dict = {x : xs, y : ys})
+    testAcc = sess.run(accuracy, feed_dict=testFeed) 
+    valAcc = sess.run(accuracy, feed_dict=validateFeed)
+    print testAcc
+    print valAcc
+    sess.close()
+
 
 
 mnist = inputData.read_data_sets("/tmp/data", one_hot=True)
