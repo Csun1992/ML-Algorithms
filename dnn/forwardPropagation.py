@@ -12,7 +12,7 @@ def getWeightVariable(shape, regularizer):
 
 # layerNums is the total number of layers INCLUDING input and output layer 
 # nodesPerLayer is the list of number of nodes in each layer including the output layer
-def forwardPropagtion(inputTensor, layerNums, nodesPerLayer):
+def forwardPropagtion(inputTensor, layerNums, nodesPerLayer, regularizer):
     layer = inputTensor 
     for i in range(1, layerNums):
         with tf.variable_scope(getLayerName(i)):
