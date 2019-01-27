@@ -12,11 +12,11 @@ def getWeightVariable(shape, regularizer):
 
 # layerNums is the total number of layers INCLUDING input and output layer 
 # nodesPerLayer is the list of number of nodes in each layer including the output layer
-def forwardPropagtion(inputTensor, layerNums, nodesPerLayer, regularizer):
+def forwardPropagation(inputTensor, layerNums, nodesPerLayer, regularizer):
     layer = inputTensor 
     for i in range(1, layerNums):
         with tf.variable_scope(getLayerName(i)):
-            weights = get_weight_variable([layerNodes[i-1], layerNodes[i]], regularizer)
-            biases = tf.get_variable("biases", [layerNodes[i]])
+            weights = getWeightVariable([nodesPerLayer[i-1], nodesPerLayer[i]], regularizer)
+            biases = tf.get_variable("biases", [nodesPerLayer[i]])
             layer = tf.matmul(layer, weights) + biases
     return layer
